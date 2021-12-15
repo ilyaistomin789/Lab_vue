@@ -1,25 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <IndexPage :title="userFullName" />
-  <ApiDemoPage />
+  <TheNavbar/>
+  <div class="app__container"><router-view></router-view></div>
+  <TheFooter/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import IndexPage from '@/pages/IndexPage.vue';
-import ApiDemoPage from '@/pages/ApiDemoPage.vue';
+import HelloPage from '@/pages/HelloPage.vue';
+import TheNavbar from '@/components/TheNavbar/TheNavbar.vue';
+import TheFooter from '@/components/TheFooter/TheFooter.vue';
 
 @Options({
   components: {
-    IndexPage,
-    ApiDemoPage
+    TheFooter,
+    HelloPage,
+    TheNavbar
   },
 })
 export default class App extends Vue {
   user: any = null;
 
   async mounted(): Promise<void> {
-    const resp = await fetch('http://localhost:3000/users/1').then((response) => response.json());
+    const resp = await fetch('http://localhost:3000/users/1')
+      .then((response) => response.json());
     this.user = resp || null;
   }
 
@@ -38,6 +41,11 @@ export default class App extends Vue {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
+.app__container{
+  width: 100%;
+  height: 86vh;
+}
+
 </style>
